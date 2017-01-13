@@ -12,11 +12,11 @@
 	.links-list{left:20px;bottom:50px;display:none;}
 	.links-list .inner{padding:10px 0;}
 	.links-list ul{padding:0 10px;}
-	.links-list li{max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:2;}
+	.links-list li{padding-right:20px;max-width:400px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:2;position:relative;}
 	.links-list li a{color:#fff;min-width:200px;}
-	.links-list li a i{float:right;margin-top:10px;width:16px;height:16px;background:url(images/tip.png) no-repeat -16px 0;display:none;}
-	.links-list li a:hover i{display:block;}
-	.links-list li.add-link a i{background-position:0 0;display:block;}
+	.links-list li i{position:absolute;top:10px;right:0px;width:16px;height:16px;background:url(images/tip.png) no-repeat -14px 2px;display:none;z-index:10;}
+	.links-list li.on i{display:block;}
+	.links-list li.add-link i{background-position:2px 2px;display:block;}
 	.left-bottom.on .links-list{display:block;}
 	.link-inp{margin-bottom:5px;width:100%;height:2rem;text-align:left;background:transparent;display:block;color:#fff;}
 	.link-inp::-webkit-input-placeholder{color:#666 ;}
@@ -28,6 +28,7 @@
 	.todo-list ul{padding:0 10px;}
 	.todo-list ul li{min-width:200px;line-height:2;}
 	.todo-list ul li .todo-inp{margin-right:10px;}
+	.todo-list ul li.del{text-decoration:line-through;}
 	.todo-list-title{color:#ccc;}
 	.todo-list ul li a i{float:right;margin-top:10px;width:16px;height:16px;background:url(images/tip.png) no-repeat -16px 0;display:none;}
 
@@ -50,15 +51,13 @@
 	</div>
 	<div class="common-p left-bottom">
 		<a href="#nogo" class="trs links  txt-shadow">常用链接</a>
-		<div class="p-wapper links-list trs">
+		<div class="p-wapper links-list trs" >
 			<div class="inner">
 				<ul class="links-list-ul">
-					<li class="link"><a href="http://www.baidu.com">baidu.com <i></i></a></li>
-					<li class="link"><a href="http://www.baidu.com">baidu.com <i></i></a></li>
-					<li class="link"><a href="http://www.baidu.com">baidu.com <i></i></a></li>
+					
 				</ul>
 				<ul class="links-list-add">
-					<li class="add-link"><a href="#nogo" >添加<i></i></a></li>
+					<li class="add-link"><a href="#nogo" >添加</a><i></i></li>
 					<li class="add-input">
 						<input type="text" class="link-inp" placeholder="标题" id="title" />
 						<input type="text" class="link-inp" placeholder="网址" id="url" />
@@ -76,9 +75,7 @@
 			<div class="inner">
 				<ul class="todo-list-ul">
 					<li class="todo-list-title"><span>3</span>件代办</li>
-					<li><a href="#nogo"><input type="checkbox" class="todo-inp" />吃饭<i></i></a></li>
-					<li><a href="#nogo"><input type="checkbox" class="todo-inp" />睡觉<i></i></a></li>
-					<li><a href="#nogo"><input type="checkbox" class="todo-inp" />打豆豆<i></i></a></li>
+					 <li class="todo-li del"><a href="#nogo"><input type="checkbox" class="todo-inp" />打豆豆<i></i></a></li> 
 				</ul>
 				<ul class="todo-list-add">
 					<li><input type="text" class="todo-add-inp" id="todo-add-inp" placeholder="添加新事项" /></li>
@@ -94,37 +91,42 @@
 		</div>
 		<div class="showname trs"><span class="greet">中午好</span>，<span class="name"></span></div>
 		<ul class="enter">
-			<li class="trs on">
-				<div class="item">
-					<i></i>任务
-				</div>
+			<li class="trs">
+				<a href="#nogo">
+					<div class="item">
+						<i class="i1"></i>任务
+					</div>
+				</a>
 			</li>
 			<li class="trs">
-				<div class="item"><i></i>OA</div>
+				<a href="#nogo">
+					<div class="item"><i class="i2"></i>OA</div>
+				</a>
 			</li>
 			<li class="trs">
-				<div class="item"><i></i>邮箱</div>
+				<a href="#nogo">
+					<div class="item"><i class="i3"></i>邮箱</div>
+				</a>
 			</li>
 		</ul>
 	</div>
 </body>
 <script type="text/javascript">
 	
-	$(function(){
+$(function(){
+
+	getTime();
+	setInterval(function(){
 		getTime();
-		setInterval(function(){
-			getTime();
-		},1000);
+	},1000);
 	
+	/* 获取名字 */
 	if(localStorage.getItem("username")==""){
 		$(".getname").show();
 	}else{
 		$(".getname").hide();
 		showname();
 	}
-
-	});
-
 
 	$("#getname").bind("keypress",function(evt){
 		if(evt.keyCode ==13){
@@ -133,12 +135,16 @@
 			showname();
 		}
 	})
+	/* 获取名字 */
 
+	/* 入口 */
 	$(".enter li").mouseenter(function(){
 		$(this).addClass("on");
 	}).mouseleave(function(){
 		$(this).removeClass("on")
 	});
+	/* 入口 */
+
 
 	$(".common-p").click(function(evt){
 		evt.stopPropagation();
@@ -152,23 +158,54 @@
 		$(".common-p").removeClass("on");
 	})
 
-	$(".link a i").click(function(evt){
-		//evt.stopPropagation();
-		evt.preventDefault();
-		$(this).parents(".link").remove();
-		console.log(this);
-	});
+	if(localStorage.getItem("linkList")){
+		var linksArr = JSON.parse(localStorage.getItem("linkList"));
+		for(var i=0;i<linksArr.length;i++){
+			$("<li class='link trs'><a target='_blank' href='"+linksArr[i].url+"'>"+linksArr[i].title+"</a><i></i></li>").appendTo(".links-list-ul");
+		}
+	}
+	
 
 	$("#url").bind("keypress",function(evt){
+		var newLink = {title:"",url:""};
+		console.log(newLink);
 		if(evt.keyCode == 13 && $("#title").val() && $("#url").val()){
-			$("<li class='link'><a href='"+$('#url').val()+"'>"+$("#title").val() +"<i></i></a></li>").appendTo(".links-list-ul");
+			$("<li class='link trs'><a target='_blank' href='"+$('#url').val()+"'>"+$("#title").val() +"</a><i></i></li>").appendTo(".links-list-ul");
 			$(".add-input").hide();
+			newLink.title=$("#title").val();
+			newLink.url=$("#url").val();
+			linksArr.push(newLink);
+			localStorage.setItem("linkList",JSON.stringify(linksArr));
+			$("#title").val("");
+			$("#url").val("");
+			
 		}
 	});
+	
+	$(".link").live("mouseenter",function(){
+		$(this).addClass("on");
+	});
+	$(".link").live("mouseleave",function(){
+		$(this).removeClass("on");
+	});
+	
+	
+
+	$(".link i").click(function(){
+		console.log(this);
+		var num = $(this).parent().index();
+		$(this).parent().remove();
+		linksArr = JSON.parse(localStorage.getItem("linkList"));
+		linksArr.splice(num,1);
+		localStorage.setItem("linkList",JSON.stringify(linksArr));
+		
+	});
+
 
 	$(".add-link").click(function(){
 		$(".add-input").show();
-	})
+	});
+	
 
 	/*待办事项*/
 
@@ -177,15 +214,17 @@
 		if(evt.keyCode==13 && $(this).val()){
 			var newTodo = $(this).val();
 			var todoArr=JSON.parse(localStorage.getItem("todoList"));
-			$("<li><a href='#nogo'><input type='checkbox' class='todo-inp' />"+newTodo+"<i></i></a></li>").appendTo(".todo-list-ul");
-			console.log(JSON.stringify(todoArr));
+			$("<li class='todo-li'><a href='#nogo'><input type='checkbox' class='todo-inp' />"+newTodo+"<i></i></a></li>").appendTo(".todo-list-ul");
+			/*console.log(JSON.stringify(todoArr));
 			todoArr.push();
 			console.log(JSON.stringify(newTodo));
 			localStorage.setItem("todoList",JSON.stringify(todoArr));
-			$(this).val("");
+			$(this).val("");*/
 		}
 	});
+	$(".todo-li i").click(function(){
 
+	});
 	/*function todoStorage(){
 		//var todoArr =["1","2","3"];
 		var newTodo = $("#todo-add-inp").val();
@@ -194,14 +233,15 @@
 
 
 	}*/
+});
 
-	$(function(){
+	/*$(function(){
 		var todoArr=JSON.parse(localStorage.getItem("todoList"));
 		for(var i=0;i<todoArr.length;i++){
 			$("<li><a href='#nogo'><input type='checkbox' class='todo-inp'>"+todoArr[i]+"<i></i></a></li>").appendTo(".todo-list-ul");
 		}
 
-	})
+	})*/
 
 	/*待办事项*/
 
@@ -237,3 +277,9 @@
 	})
 </script>
 </html>
+
+<!-- 
+http://www.cnblogs.com/Chen-XiaoJun/p/6238137.html 
+http://blog.csdn.net/mayixixi/article/details/7667016
+
+-->

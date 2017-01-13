@@ -42,11 +42,14 @@ html{ font-size:62.5%; }
 	.fadeIn{animation:fadeIn 0.5s 1 linear forwards;-webkit-animation:fadeIn 0.2s 1 linear forwards;-moz-animation:fadeIn 0.2s 1 linear forwards;}
 	.enter{padding-top:5rem;max-width:800px;margin:0 auto;font-size:0;text-align:center;}
 	.enter li{display:inline-block;width:33.3%;opacity:0.5;vertical-align:top;}
+	.enter li a{display:block;}
 	.enter li.on{opacity:1;}
 	.enter li.on .item{animation:enterhover 0.18s linear forwards;-webkit-animation:enterhover 0.18s linear forwards;-moz-animation:enterhover 0.18s linear forwards;box-shadow:0 0 12px rgba(51,51,51,0.5);}
 	.enter .item{margin:0 auto;width:15rem;height:10rem;border-radius:10px;-webkit-border-radius:10px;-moz-border-radius:10px;background: rgba(0,0,0,0.5);font-size:1.8rem;line-height:10rem;vertical-align:top;color:#fff;}
-	.enter .item i{margin-right:1.5rem;width:50px;height:50px;border:1px solid #ddd;display:inline-block;vertical-align:middle;}
-	
+	.enter .item i{margin-right:1.5rem;width:50px;height:50px;display:inline-block;vertical-align:middle;}
+	.enter .item i.i1{background:url(../images/task.png) no-repeat;background-size:100% 100%;}
+	.enter .item i.i2{background:url(../images/oa.png) no-repeat;background-size:100% 100%;}
+	.enter .item i.i3{background:url(../images/mail.png) no-repeat;background-size:100% 100%;}
 	.p-wapper{position:fixed;}
 	.p-wapper .inner{width:auto;height:auto;background:rgba(0,0,0,0.8);color:#fff;font-size:1.6rem;border-radius:10px;-webkit-border-radius:10px;-moz-border-radius:10px;}
 	.notice-list{left:20px;top:50px;display:none;}
