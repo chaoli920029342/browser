@@ -26,8 +26,9 @@ html{ font-size:62.5%; }
 	.common-p.on ul li a:hover{color:#fff;}
 	.left-top{top:20px;left:20px;}
 	.left-bottom{bottom:20px;left:20px;}
-	.right-top{top:20px;right:20px;}
+	.right-top{top:20px;right:20px;text-align:center;}
 	.right-bottom{bottom:20px;right:20px;}
+	.right-bottom.on .todo-list{display:block;}
 	.notice::before{position:absolute;top:2px;left:0;width:16px;height:16px;content:url(../images/notice.png);}
 	.links::before{position:absolute;top:2px;left:0;width:16px;height:16px;content:url(../images/links.png);}
 	.todo::before{position:absolute;top:2px;left:0;width:16px;height:16px;content:url(../images/todo.png);}
