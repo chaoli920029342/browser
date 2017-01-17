@@ -123,7 +123,7 @@ $(function(){
 	},1000);
 	
 	/* 获取名字 */
-	if(localStorage.getItem("username")==""){
+	if(localStorage.getItem("username") == null ){
 		$(".getname").show();
 	}else{
 		$(".getname").hide();
@@ -309,7 +309,7 @@ $(function(){
 		var year = new Date().getFullYear();
 		var month = new Date().getMonth()+1;
 		var day = new Date().getDate();
-		$("body").css("background","url(images/bg-"+year+month+day+".jpg) center top no-repeat");
+		$("body").css({"background-image":"url(images/bg-2017117.jpg)"});
     		
     	//}
 	}

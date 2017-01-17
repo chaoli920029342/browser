@@ -37,7 +37,7 @@ html{ font-size:62.5%; }
 	.trs{transition:all 0.18s ease;-webkit-transition:all 0.18s ease;-moz-transition:all 0.18s ease;}
 	.content{position:fixed;z-index:90;width:100%;top:20%;right:0;bottom:0;left:0;color:#fff;text-align:center;line-height:1.2;}
 	.content .time{font-size:20rem;font-family:arial;cursor:default;}
-	.content .getname{font-size:4rem;cursor:default;}
+	.content .getname{font-size:4rem;cursor:default;display:block;}
 	.content .getname .inp{margin-top:2rem;border-bottom:2px solid #fff;width:50%;height:4rem;background:transparent;text-align:center;line-height:1;font-size:4rem;color:#fff;}
 	.content .showname{font-size:4rem;opacity:0;}
 	.fadeIn{animation:fadeIn 0.5s 1 linear forwards;-webkit-animation:fadeIn 0.2s 1 linear forwards;-moz-animation:fadeIn 0.2s 1 linear forwards;}
