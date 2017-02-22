@@ -192,7 +192,7 @@ $(function(){
 	});
 	
 	$(".link i").click(function(){
-		console.log(this);
+		//console.log(this);
 		var num = $(this).parent().index();
 		$(this).parent().remove();
 		linksArr = JSON.parse(localStorage.getItem("linkList"));
@@ -209,18 +209,21 @@ $(function(){
 	/*待办事项*/
 	if(localStorage.getItem("todoList")){
 		var todoArr = JSON.parse(localStorage.getItem("todoList"));
+		if(todoArr == null){
+			$(".todo-list-title span").html(0);
+		}
 		for(var i=0;i<todoArr.length;i++){
 			if(todoArr[i].checked == "true"){
 				todoArr.splice(i,1);
 				i=-1;
-				//console.log(todoArr[i]);
+				
 			}
 
 
 		}
 		localStorage.setItem("todoList",JSON.stringify(todoArr));
-		var todo_num = todoArr.length;
-		console.log(todo_num);
+		var todo_num = JSON.parse(localStorage.getItem("todoList")).length;
+		//console.log(todo_num);
 		$(".todo-list-title span").html(todo_num);
 		for(var i=0;i<todoArr.length;i++){
 			$("<li class='todo-li'><a href='#nogo'><input type='checkbox' class='todo-inp' />"+todoArr[i].item+"<i></i></a></li>").appendTo(".todo-list-ul");
@@ -230,7 +233,7 @@ $(function(){
 	}
 
 	$("#todo-add-inp").bind("keypress",function(evt){
-		
+		var todo_num = $(".todo-list-title span").html();
 		var newTodo = {checked:"",item:""};
 		if(evt.keyCode == 13 && $(".todo-add-inp").val()){
 			$("<li class='todo-li'><a href='#nogo'><input type='checkbox' class='todo-inp' />"+$(".todo-add-inp").val()+"<i></i></a></li>").appendTo(".todo-list-ul");
@@ -246,8 +249,9 @@ $(function(){
 	});
 	
 	$(".todo-li input").on("click",function(){
+		var todoArr = JSON.parse(localStorage.getItem("todoList"));
+		var todo_num=$(".todo-list-title span").html();
 		var isChecked = $(this).is(':checked');
-		console.log(isChecked);
 		if(isChecked){
 			$(this).parents(".todo-li").addClass("del");
 			var index=$(this).parents(".todo-li").index(".todo-li");
